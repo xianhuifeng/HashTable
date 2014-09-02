@@ -36,6 +36,10 @@ describe('HashTable.prototype.remove()', function () {
   });
 });
 
+var list;
+beforeEach(function() {
+  list = new DoublyLinkList();
+});
 
 describe('DoublyLinkList()', function () {
 
@@ -49,13 +53,19 @@ describe('DoublyLinkList.prototype.addToTail', function () {
     expect(DoublyLinkList.prototype.addToTail).to.be.a('function');
   });
 
-  var list = new DoublyLinkList();
-  list.addToTail('dog','happy');
+  it('should add new node to tail and also add new node to prev node', function () {
+    list.addToTail('dog','happy');
+    expect(list.tail.value[0]).to.equal('dog');
 
-  it('should add node to tail', function () {
-    expect(list.tail === null).to.equal(false);
+    list.addToTail('cat','angry');
+    expect(list.tail.value[0]).to.equal('cat');
+
+    list.addToTail('god','sky');
+    expect(list.tail.value[0]).to.equal('god');
+    expect(list.head.value[0]).to.equal('dog');
+    expect(list.head.next.value[0]).to.equal('cat');
+    expect(list.head.next.next.value[0]).to.equal('god');
   });
-
 });
 
 describe('DoublyLinkList.prototype.isContain', function () {

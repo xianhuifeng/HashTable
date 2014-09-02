@@ -34,9 +34,13 @@ DoublyLinkList.prototype.addToTail = function(k,v) {
 	if (this.head === null) {
 		this.tail = this.head = node;	
 	} else {
+		var currentNode = this.head;
+		while (currentNode.next) {
+			currentNode = currentNode.next;
+		}
  		this.tail = node;
- 		this.head.next = node;
- 		
+ 		currentNode.next = node;
+ 		node.prev = currentNode;
 	}
 };
 
