@@ -45,7 +45,16 @@ DoublyLinkList.prototype.addToTail = function(k,v) {
 };
 
 DoublyLinkList.prototype.isContain = function(k) {
-	// body...
+	var found = false;
+	var currentNode = this.head;
+	while(found === false && currentNode !== null){	
+		if(currentNode.value[0] === k){
+			found = true;
+		} else {
+			currentNode = currentNode.next;			
+		}
+	}
+	return found;
 };
 
 DoublyLinkList.prototype.removeFromList = function(k) {

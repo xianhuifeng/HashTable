@@ -36,21 +36,23 @@ describe('HashTable.prototype.remove()', function () {
   });
 });
 
-var list;
-beforeEach(function() {
-  list = new DoublyLinkList();
-});
 
 describe('DoublyLinkList()', function () {
+
+  var list;
+  beforeEach(function() {
+    list = new DoublyLinkList();
+  });
 
   it('exists', function () {
     expect(DoublyLinkList).to.be.a('function');
   });
-})
 
-describe('DoublyLinkList.prototype.addToTail', function () {
-  it('exists', function () {
+  it('should have four functions', function () {
     expect(DoublyLinkList.prototype.addToTail).to.be.a('function');
+    expect(DoublyLinkList.prototype.isContain).to.be.a('function');
+    expect(DoublyLinkList.prototype.removeFromList).to.be.a('function');
+    expect(DoublyLinkList.prototype.makeNode).to.be.a('function');
   });
 
   it('should add new node to tail and also add new node to prev node', function () {
@@ -66,23 +68,13 @@ describe('DoublyLinkList.prototype.addToTail', function () {
     expect(list.head.next.value[0]).to.equal('cat');
     expect(list.head.next.next.value[0]).to.equal('god');
   });
-});
 
-describe('DoublyLinkList.prototype.isContain', function () {
-  it('exists', function () {
-    expect(DoublyLinkList.prototype.isContain).to.be.a('function');
+  it('should contain value after added', function () {
+    list.addToTail('dog', 'happy');
+    list.addToTail('cat','angry');
+    expect(list.isContain('dog')).to.equal(true);
+    expect(list.isContain('cat')).to.equal(true);
+    expect(list.isContain('god')).to.equal(false);
   });
-});
 
-describe('DoublyLinkList.prototype.removeFromList', function () {
-  it('exists', function () {
-    expect(DoublyLinkList.prototype.removeFromList).to.be.a('function');
-  });
 });
-
-describe('DoublyLinkList.prototype.makeNode', function () {
-  it('exists', function () {
-    expect(DoublyLinkList.prototype.makeNode).to.be.a('function');
-  });
-});
-
