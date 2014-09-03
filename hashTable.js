@@ -1,4 +1,5 @@
 /*! HashTable v0.0.0 - MIT license */
+
 'use strict';
 
 var HashTable = function (maxLength) {
@@ -58,7 +59,39 @@ DoublyLinkList.prototype.isContain = function(k) {
 };
 
 DoublyLinkList.prototype.removeFromList = function(k) {
-	// body...
+	var currentNode = this.head;
+	var found = false;
+	var foundKey = '';
+	while(found === false && currentNode !== null){
+		if(currentNode.value[0] === k){
+			console.log(currentNode.value[0]);
+			//found = true
+			found = true;
+			//foundKey = currentNode.value[0];	
+			foundKey = currentNode.value[0];
+			if(!currentNode.prev && !currentNode.next){
+				this.head = this.tail = null;
+			}else if(!currentNode.prev && currentNode.next){
+				//this.head is this.head.next
+				this.head = this.head.next;
+				//this.head.next.prev = null
+				this.head.prev = null;
+			}else if(!currentNode.next && currentNode.prev){//else if currentNode is tail
+				//this.tail is this.tail.prev
+				this.tail = this.tail.prev;
+				//this.tail.next = null
+				this.tail.next = null;
+			}else{
+				//currentNode.prev.next = currentNode.next
+				currentNode.prev.next = currentNode.next;
+				//currentNode.next.prev = currentNode.prev
+				currentNode.next.prev = currentNode.prev;
+			}
+		}else{
+			currentNode = currentNode.next;			
+		}
+	}
+	return foundKey;
 };
 
 DoublyLinkList.prototype.makeNode = function(k,v) {

@@ -77,4 +77,18 @@ describe('DoublyLinkList()', function () {
     expect(list.isContain('god')).to.equal(false);
   });
 
+  it('should do not contain value if the node get removed from list', function () {
+    list.addToTail('dog','happy');
+    list.addToTail('cat','angry');
+    list.addToTail('god','sky');
+    expect(list.removeFromList('dog')).to.equal('dog');
+    expect(list.isContain('dog')).to.equal(false);
+
+    expect(list.removeFromList('cat')).to.equal('cat');
+    expect(list.isContain('cat')).to.equal(false);
+
+    expect(list.isContain('god')).to.equal(true);
+    expect(list.head.value[0]).to.equal('god');    
+  });
+
 });
