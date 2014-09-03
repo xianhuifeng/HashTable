@@ -1,7 +1,7 @@
 /*! HashTable v0.0.0 - MIT license */
 
 'use strict';
-
+/* This is a HashTable class made with Doubly Link List*/
 var HashTable = function (maxLength) {
 	this._max = maxLength;
 	this.storage = new Array(this._max);

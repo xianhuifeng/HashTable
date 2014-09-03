@@ -17,7 +17,6 @@ describe('HashTable()', function () {
 
   it('should create an array and length is the maxmize length', function () {
     expect(hashTable.storage.length).to.equal(8);
-    // console.log(hashTable.storage);
   });
 
 
@@ -93,11 +92,8 @@ describe('DoublyLinkList()', function () {
     list.addToTail('dog', 'happy');
     list.addToTail('cat','angry');
     expect(list.isContain('dog')).to.equal('happy');
-    // console.log(list.isContain('dog'));
     expect(list.isContain('cat')).to.equal('angry');
-    // console.log(list.isContain('cat'));
     expect(list.isContain('god')).to.equal('');
-    // console.log(list.isContain('god'));
   });
 
   it('should do not contain value if the node get removed from list', function () {
