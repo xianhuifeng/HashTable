@@ -3,7 +3,6 @@
 'use strict';
 
 var HashTable = function (maxLength) {
-	//var list = new DoublyLinkList();
 	this._max = maxLength;
 	this.storage = new Array(this._max);
 
@@ -69,9 +68,7 @@ DoublyLinkList.prototype.isContain = function(k) {
 	while(found === false && currentNode !== null){	
 		if(currentNode.value[0] === k){
 			found = true;
-			foundValue = currentNode.value[1];
-	//console.log(foundValue);
-			
+			foundValue = currentNode.value[1];			
 		} else {
 			currentNode = currentNode.next;			
 		}
