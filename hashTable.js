@@ -3,25 +3,42 @@
 'use strict';
 
 var HashTable = function (maxLength) {
-	var list = new DoublyLinkList();
+	//var list = new DoublyLinkList();
 	this._max = maxLength;
 	this.storage = new Array(this._max);
 
 	for (var i = 0; i < this.storage.length; i++) {
-		this.storage[i] = list;
-	};
+		this.storage[i] = new DoublyLinkList();
+	}
 };
 
 HashTable.prototype.insert = function(k,v) {
-				
+	var index = this.getIndexBelowMaxForKey(k,this._max);
+	var moduleIndex = index%this._max;
+	this.storage[moduleIndex].addToTail(k,v);
 };
 
 HashTable.prototype.retrieve = function(k) {
-		
+	var index = this.getIndexBelowMaxForKey(k,this._max);
+	var moduleIndex = index%this._max;
+	return this.storage[moduleIndex].isContain(k);
 };
 
 HashTable.prototype.remove = function(k) {
-	// body...
+	var index = this.getIndexBelowMaxForKey(k,this._max);
+	var moduleIndex = index%this._max;
+	return this.storage[moduleIndex].removeFromList(k);
+};
+
+//hashtable helper
+HashTable.prototype.getIndexBelowMaxForKey = function(str, max){
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = (hash<<5) + hash + str.charCodeAt(i);
+    hash = hash & hash; // Convert to 32bit integer
+    hash = Math.abs(hash);
+  }
+  return hash % max;
 };
 
 
@@ -47,15 +64,19 @@ DoublyLinkList.prototype.addToTail = function(k,v) {
 
 DoublyLinkList.prototype.isContain = function(k) {
 	var found = false;
+	var foundValue = '';
 	var currentNode = this.head;
 	while(found === false && currentNode !== null){	
 		if(currentNode.value[0] === k){
 			found = true;
+			foundValue = currentNode.value[1];
+	//console.log(foundValue);
+			
 		} else {
 			currentNode = currentNode.next;			
 		}
 	}
-	return found;
+	return foundValue;
 };
 
 DoublyLinkList.prototype.removeFromList = function(k) {
@@ -64,7 +85,6 @@ DoublyLinkList.prototype.removeFromList = function(k) {
 	var foundKey = '';
 	while(found === false && currentNode !== null){
 		if(currentNode.value[0] === k){
-			console.log(currentNode.value[0]);
 			//found = true
 			found = true;
 			//foundKey = currentNode.value[0];	

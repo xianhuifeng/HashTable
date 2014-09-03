@@ -2,7 +2,10 @@
 
 describe('HashTable()', function () {
   'use strict';
-  var hashTable = new HashTable(8);
+  var hashTable;
+  beforeEach(function() {
+    hashTable = new HashTable(8);
+  });
 
   it('exists', function () {
     expect(HashTable).to.be.a('function');
@@ -14,25 +17,42 @@ describe('HashTable()', function () {
 
   it('should create an array and length is the maxmize length', function () {
     expect(hashTable.storage.length).to.equal(8);
+    // console.log(hashTable.storage);
   });
 
-});
 
-describe('HashTable.prototype.insert()', function () {
-  it('exists', function () {
+  it('should have three functions', function () {
     expect(HashTable.prototype.insert).to.be.a('function');
-  });
-});
-
-describe('HashTable.prototype.retrieve()', function () {
-  it('exists', function () {
-    expect(HashTable.prototype.retrieve).to.be.a('function');
-  });
-});
-
-describe('HashTable.prototype.remove()', function () {
-  it('exists', function () {
+    expect(HashTable.prototype.retrieve).to.be.a('function'); 
     expect(HashTable.prototype.remove).to.be.a('function');
+    expect(HashTable.prototype.getIndexBelowMaxForKey).to.be.a('function');
+  });
+
+  it('should added node to hashTable after insert', function () {
+    hashTable.insert('dog','happy');
+    var index = hashTable.getIndexBelowMaxForKey('dog', 8);
+    var moduleIndex = index%8;
+    expect(hashTable.storage[moduleIndex].isContain('dog')).to.equal('happy');
+    
+    hashTable.insert('god','sky');
+    var index = hashTable.getIndexBelowMaxForKey('god', 8);
+    var moduleIndex = index%8;
+    expect(hashTable.storage[moduleIndex].isContain('god')).to.equal('sky');
+  });
+
+  it('should return the value of the key after called retrieve', function () {
+    hashTable.insert('dog','happy');
+    hashTable.insert('cat','angry');
+    expect(hashTable.retrieve('dog')).to.equal('happy');
+    expect(hashTable.retrieve('cat')).to.equal('angry');
+  });
+
+  it('should remove the key and value after called remove', function () {
+    hashTable.insert('dog','happy');
+    expect(hashTable.retrieve('dog')).to.equal('happy');
+    expect(hashTable.remove('dog')).to.equal('dog');
+    expect(hashTable.retrieve('dog')).to.equal('');
+
   });
 });
 
@@ -72,9 +92,12 @@ describe('DoublyLinkList()', function () {
   it('should contain value after added', function () {
     list.addToTail('dog', 'happy');
     list.addToTail('cat','angry');
-    expect(list.isContain('dog')).to.equal(true);
-    expect(list.isContain('cat')).to.equal(true);
-    expect(list.isContain('god')).to.equal(false);
+    expect(list.isContain('dog')).to.equal('happy');
+    // console.log(list.isContain('dog'));
+    expect(list.isContain('cat')).to.equal('angry');
+    // console.log(list.isContain('cat'));
+    expect(list.isContain('god')).to.equal('');
+    // console.log(list.isContain('god'));
   });
 
   it('should do not contain value if the node get removed from list', function () {
@@ -82,12 +105,12 @@ describe('DoublyLinkList()', function () {
     list.addToTail('cat','angry');
     list.addToTail('god','sky');
     expect(list.removeFromList('dog')).to.equal('dog');
-    expect(list.isContain('dog')).to.equal(false);
+    expect(list.isContain('dog')).to.equal('');
 
     expect(list.removeFromList('cat')).to.equal('cat');
-    expect(list.isContain('cat')).to.equal(false);
+    expect(list.isContain('cat')).to.equal('');
 
-    expect(list.isContain('god')).to.equal(true);
+    expect(list.isContain('god')).to.equal('sky');
     expect(list.head.value[0]).to.equal('god');    
   });
 
